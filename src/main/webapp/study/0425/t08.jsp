@@ -14,7 +14,8 @@
     	
     	function imgView() {
 			let img = myform.img.value;
-			let str = '';
+			let str = '<img src="<%=request.getContextPath()%>/images/'+img+'.jpg" width="300px"/>';
+			demo1.innerHTML = str;
 		}
     </script>
 </head>
@@ -23,14 +24,16 @@
 <div class="container">
 	<h2>아래 콤보상자에서 그림 파일을 선택하면 선택된 그림을 화면에 출력하시오</h2>
 	<hr/>
-	<form action="t08Ok.jsp">
+	<form name="myform" action="<%=request.getContextPath() %>/j0425/T08Ok">
 		<div>그림선택
 			<select name="img" onchange="imgView()">
 				<option>111</option>
-				<option>222</option>
-				<option>333</option>
+				<option>112</option>
+				<option>113</option>
 			</select>
 		</div>
+		<hr/>
+		<div id="demo1"></div>
 		<hr/>
 		<div>그림선택
 			<select name="img2" size="3" multiple>
@@ -38,7 +41,10 @@
 				<option>222</option>
 				<option>333</option>
 			</select>
+			<p><input type="submit" value="사진출력" class="btn btn-info"/></p>
 		</div>
+		<hr/>
+		<div id="demo2"></div>
 		<hr/>
 	</form>
 </div>

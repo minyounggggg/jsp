@@ -2,6 +2,8 @@ package study.j0425;
 
 import java.io.IOException;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,15 +21,18 @@ public class T10Ok extends HttpServlet{
 		String pwd = request.getParameter("pwd")==null ? "" : request.getParameter("pwd");
 		
 		//db에서 mid와 같은 자료가 있는지 검색후 돌아온다.
-		String loginOk = "";
 		if(!mid.equals("admin") || !pwd.equals("1234")){
 			//jsp로 보내서 다시 로그인하라는 메세지를 띄워라
-			response.sendRedirect(request.getContextPath()+"/study/0428/t10_Login.jsp?msgFlag=no");
+			response.sendRedirect(request.getContextPath()+"/study/0425/t10_Login.jsp?msgFlag=no");
 			return;
 		}
 		
 		//정상회원들 처리부분
 		System.out.println("정상로그인 처리됨");
-		response.sendRedirect(request.getContextPath()+"/study/0425/t10Main.jsp?msgFlag=ok&min="+mid);
+//		response.sendRedirect(request.getContextPath()+"/study/0425/t10Main.jsp?msgFlag=ok&min="+mid);
+		
+		String viewPage = "/study/0425/t10Main.jsp?msgFlag=ok&min=\"+mid";
+		RequestDispatcher dispatcher = request.getRequestDispatcher("viewPage");
+		dispatcher.forward(request, response);
 	}
 }

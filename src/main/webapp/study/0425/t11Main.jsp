@@ -21,9 +21,9 @@
     	}
     	
     	function logoutCheck() {
-			let ans = confirm("로그아웃 하겠습닊따?");
+			let ans = confirm("로그아웃 하겠습니까?");
 			if(ans){
-				alert('<%=mid%>님 로그아운 완료');
+				alert('<%=mid%>님 로그아웃 완료');
 				location.href = '<%=request.getContextPath()%>/study/0425/t11_Login.jsp';
 			}
 		}
@@ -34,7 +34,6 @@
 <div class="container">
 	<h2>회원 전용방</h2>
 	<hr/>
-	<div><a href="t10_member.jsp" class="btn btn-info"></a>회원정보보기</div>
 	<p>
 		<%=mid %>회원님 로그인중입니다.
 	</p>

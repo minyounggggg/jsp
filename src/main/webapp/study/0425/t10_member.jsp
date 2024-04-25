@@ -15,9 +15,9 @@
 <div class="container">
 	<h2>호ㅓㅣ원정보보기</h2>
 	<hr/>
-	<div><img src="<%=request.getContextPath() %>/images/114.jpg" width="300px"/></div>
+	<div><img src="<%=request.getContextPath() %>/images/111.jpg" width="300px"/></div>
 	<hr/>
-	<div><a href="t10_main.jsp" class="btn btn-info">회원방으로 돌아가기</a></div>
+	<div><a href="t10_Login.jsp" class="btn btn-info">회원방으로 돌아가기</a></div>
 </div>
 <p><br/></p>
 </body>

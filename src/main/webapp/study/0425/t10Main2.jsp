@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	String mid = request.getParameter("mid") == null ? "관리자" : request.getParameter("mid");
-	String msgFlag = request.getParameter("msgFlag");
+	// String mid = request.getParameter("mid") == null ? "관리자" : request.getParameter("mid");
+	// String msgFlag = request.getParameter("msgFlag");
 %>
 <!DOCTYPE html>
 <html>
@@ -15,16 +15,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     	'use strict';
-    	
+    	<%-- 
     	if('<%= msgFlag%>' == 'ok'){
     		alert("<%=mid%>님 방문 환영");
     	}
-    	
+    	 --%>
+    	if('${msgFlag}' == 'ok'){
+    		alert("${mid}님 방문 환영");
+    	}
     	function logoutCheck() {
 			let ans = confirm("로그아웃 하겠습니까?");
 			if(ans){
-				alert('<%=mid%>님 로그아웃 완료');
-				location.href = 't10_Login.jsp';
+				alert('${mid}님 로그아웃 완료');
+				location.href = '<%=request.getContextPath()%>/study/0425/t10_Login2.jsp';
 			}
 		}
     </script>
@@ -36,8 +39,10 @@
 	<hr/>
 	<div><a href="t10_member.jsp" class="btn btn-info">회원정보 보기</a></div>
 	<p>
-		<%=mid %>회원님 로그인중입니다.
+		${mid}회원님 로그인중입니다.
 	</p>
+	<p>${mbc}</p>
+	<p>${kbs}</p>
 	<hr/>
 	<p>
 		<a href="javascript:logoutCheck()" class="btn btn-warning">로그아웃</a>
