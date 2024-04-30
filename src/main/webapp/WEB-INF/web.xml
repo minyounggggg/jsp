@@ -12,12 +12,24 @@
   
   <!-- 
   <servlet>
-  	<servlet-name>Test8</servlet-name>
+  	<servlet-name>test8</servlet-name>
   	<servlet-class>study.j0424.Test8</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>Test8</servlet-name>
+  	<servlet-name>test8</servlet-name>
   	<url-pattern>/T8</url-pattern>
   </servlet-mapping>
    -->
+   
+   <!-- Fliter처리 (Controller 앞단에서 제어(처리)한다. -->
+	<filter>
+	<filter-name>filterTest</filter-name>
+		<filter-class>filter.FilterTest</filter-class>
+	</filter>
+	<filter-mapping>
+	<filter-name>filterTest</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+   
+   
 </web-app>

@@ -35,6 +35,7 @@
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/homwork/ex1_Login.jsp">아이디저장 연습</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0429_JSTL/el1.jsp">EL 연습</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0429_JSTL/jstl.jsp">JSTL 연습</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0430_web_xml/filter/t1_filter.jsp">Filter 한글 연습</a>
 			    </div>
 		</div>
       </li>
