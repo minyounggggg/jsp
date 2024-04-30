@@ -1,3 +1,5 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,13 +20,20 @@
 
 <!-- 메뉴바(Nav) -->
 <%@ include file = "../../include/nav.jsp" %>
+<%
+	Date time = new Date();
+	SimpleDateFormat fommter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+	
+%>
 
 <div class="container" style="margin-top:30px">
   <div class="row">
     <div class="col-sm-4">
-      <h2>About Me</h2>
+      <h2>About Me(${sMid})</h2>
       <h5>Photo of me:</h5>
-      <div class="fakeimg">Fake Image</div>
+      <div class="fakeimg">Today -> [${aCount}]
+      <p><%=fommter.format(time) %></p>
+      </div>
       <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
       <h3>Some Links</h3>
       <p>Lorem ipsum dolor sit ame.</p>
