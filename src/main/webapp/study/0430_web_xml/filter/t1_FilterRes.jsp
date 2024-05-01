@@ -20,7 +20,7 @@
 		메세지 : ${msg}
 	</div>
 	<hr/>
-	<div><a href="${ctp}/study/0430_web_xml/filter/t1_Filter.jsp" class="btn btn-success">돌아가기</a></div>
+	<div><a href="${ctp}/study/0430_web_xml/filter/t1_filter.jsp" class="btn btn-success">돌아가기</a></div>
 </div>
 <p><br/></p>
 <%@ include file = "/include/footer.jsp" %>

@@ -15,7 +15,7 @@ import javax.swing.RepaintManager;
 public class LoginOk extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+//		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
 		String mid = request.getParameter("mid")==null ? "" : request.getParameter("mid");
