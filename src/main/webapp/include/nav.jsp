@@ -36,15 +36,18 @@
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0429_JSTL/el1.jsp">EL 연습</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0429_JSTL/jstl.jsp">JSTL 연습</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0430_web_xml/filter/t1_filter.jsp">Filter 한글 연습</a>
+			      <%-- <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0430_web_xml/filter/t2_Certification.jsp">인증코드발행(관리자)</a> --%>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0430_web_xml/init/t03_init.jsp">초기값확인</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/database/LoginList">데이터베이스연습</a>
 			    </div>
 		</div>
       </li>
       <%} %>
       <li class="nav-item">
       <% if(!mid_.equals("")){ %>
-        <a class="nav-link" href="${pageContext.request.contextPath}/j0427/Logout">Logout</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/database/Logout">Logout</a>
         <%} else { %>
-        <a class="nav-link" href="<%=request.getContextPath()%>/study/0428_Login/login.jsp">Login</a>
+        <a class="nav-link" href="<%=request.getContextPath()%>/study/database/login.jsp">Login</a>
         <%} %>
       </li>     
     </ul>

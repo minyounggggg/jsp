@@ -7,7 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>t1_FilterRes.jsp</title>
+	<title>loginMain.jsp</title>
     <jsp:include page="/include/bs4.jsp" />
 </head>
 <body>
@@ -15,12 +15,33 @@
 <jsp:include page="/include/nav.jsp" />
 <p><br/></p>
 <div class="container">
-	<h2>이곳은 t1_FilterRes.jsp 입니다</h2>
-	<div>
-		메세지 : ${msg}
-	</div>
+	<h2 class="text-center">회원메인방</h2>
 	<hr/>
-	<div><a href="${ctp}/study/0430_web_xml/filter/t1_filter.jsp" class="btn btn-success">돌아가기</a></div>
+	<table class="table table-hover">
+		<tr class="table-dark text-dark">
+			<th>번호</th>
+			<th>아이디</th>
+			<th>성명</th>
+			<th>나이</th>
+			<th>성별</th>
+			<th>주소</th>
+		</tr>
+		<c:forEach var="vo" items="${vos}" varStatus="st">
+			<tr>
+				<td>${vo.idx}</td>
+				<td>${vo.mid}</td>
+				<td>${vo.name}</td>
+				<td>${vo.age}</td>
+				<td>${vo.gender}</td>
+				<td>${vo.address}</td>
+			</tr>
+		</c:forEach>
+		<tr><td colspan="6" class="m-0 p-0"></td></tr>
+	</table>
+	<hr/>
+	<p>
+		<a href="${ctp}/database/Search" class="btn btn-warning">개별조회</a>
+	</p>
 </div>
 <p><br/></p>
 <%@ include file = "/include/footer.jsp" %>

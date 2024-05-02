@@ -11,24 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet("/j0430/T01Ok")
-public class T01Ok extends HttpServlet{
+@WebServlet("/j0430/T01Ok2")
+public class T01Ok2 extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		
+		// 한글처리하지않음 (filter에서 할꺼임)
 		
 		String content = request.getParameter("content")==null ? "" : request.getParameter("content");
 		String introduce = request.getParameter("introduce")==null ? "" : request.getParameter("introduce");
 		
-		System.out.println("이곳은 /j0430/T01Ok 서블릿입니다.");
+		System.out.println("이곳은 /j0430/T01Ok2 서블릿입니다.");
 		System.out.println("content : " + content);
 		System.out.println("introduce" + introduce);
 		
 		PrintWriter out = response.getWriter();
-		out.print("이곳은 T01Ok 컨트롤러입니다.");
+		out.print("이곳은 T01Ok2 컨트롤러입니다.");
 		
-		request.setAttribute("msg", "T01Ok 에서 보냈ㅂ니바.");
+		request.setAttribute("msg", "T01Ok2 에서 보냅니다.");
 		
 		String viewPage = "/study/0430_web_xml/filter/t1_FilterRes.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
