@@ -22,6 +22,10 @@ public class GuestInputOk extends HttpServlet{
 		String content = request.getParameter("content")==null ? "" : request.getParameter("content");
 		String hostIp = request.getParameter("hostIp")==null ? "" : request.getParameter("hostIp");
 		
+		// <이거랑  >이거 못쓰게 해서 태그를 못쓰게한다.
+		name = name.replace("<", "&lt;");
+		name = name.replace(">", "&gt;");
+		
 		GuestVO vo = new GuestVO();
 		
 		vo.setName(name);

@@ -28,7 +28,10 @@ public class LoginOk extends HttpServlet{
 		
 		PrintWriter out = response.getWriter();
 		
+		// 아래로 회원 인증처리
+		// 회원이 맞으면 vo.getMid 값이 null이 아니다.
 		if(vo.getMid() != null) {
+			// 회원일때 처리할 부분
 			// 쿠키에 아이디를 저장/해제 처리한다.
 			// 로그인시 아이디저장시킨다고 체크하면 쿠키에 아이디 저장하고, 그렇지 않으면 쿠키에서 아이디를 제거한다.
 			String idSave = request.getParameter("idSave")==null ? "off" : "on";
@@ -48,6 +51,9 @@ public class LoginOk extends HttpServlet{
 			session.setAttribute("sMid", mid);
 			//회원의 성명을 세션에 저장하기 위해 DB에서 가져온 name을 세연에 저장처리한다.
 			session.setAttribute("sName", vo.getName());
+			
+			// 관리자의 아이디는 'cmy1234' 이라고 가정하고, 관리자인 경우는 관리자 세션(sAdmin)을 부여한다.
+			if(mid.equals("cmy1234")) session.setAttribute("sAdmin", "OK");  //아이디가 cmy1234가 맞으면 관리자세션(sAdmin)에 'OK'로 저장한다.
 			
 			out.println("<script>");
 			out.println("alert('"+mid+"님 로그인 되었습니다. ~')");

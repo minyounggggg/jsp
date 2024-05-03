@@ -26,7 +26,7 @@
       </li>    
       <li class="nav-item">
       	<div class="dropdown">
-			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">STUDY_01</button>
+			<button type="button" class="btn btn-secondary dropdown-toggle mr-3" data-toggle="dropdown">STUDY_01</button>
 				<div class="dropdown-menu">
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0426/t01.jsp">서버환경</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0426/t02.jsp">성적 계산</a>
@@ -43,6 +43,14 @@
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0430_web_xml/lifeCycle/lifeCycle2.jsp">서블릿 생명주기</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/database/LoginList">데이터베이스 연습</a>
 			    </div>
+		</div>
+      </li>
+      <li class="nav-item">
+      	<div class="dropdown">
+			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">STUDY_02</button>
+			<div class="dropdown-menu">
+			     <a class="dropdown-item" href="<%=request.getContextPath()%>/study/password/passCheck.jsp">비밀번호암호화</a>
+			</div>
 		</div>
       </li>
       <%} %>
