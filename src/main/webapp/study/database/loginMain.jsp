@@ -81,6 +81,11 @@
 		</c:forEach>
 		<tr><td colspan="6" class="m-0 p-0"></td></tr>
 	</table>
+	<!-- 블록페이지 -->
+	<div class="text-center">
+		
+	</div>
+	<!-- 블록페이지 -->
 	<hr/>
 	<div class="input-group">
 		<div class="input-group-prepend"><span class="input-group-text">성 명</span></div>

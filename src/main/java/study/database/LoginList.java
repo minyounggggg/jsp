@@ -49,6 +49,14 @@ public class LoginList extends HttpServlet{
 		// 6. 현재 화면에 표시될 시작 실제 번호를 구한다.
 		int curScrStarNO = (totRecCnt - startIndexNo);
 		
+		
+		//블록페이징 처리
+		int blockSize = 3;
+		int curBlock = (pag-1) / blockSize;
+		int lastBlock = (totPage-1) / blockSize;
+		
+		
+		
 		// 한페이지에 표시할 건수만(pageSize수 만큼)을 DAO에서 가져온다. (page
 		ArrayList<LoginVO> vos = dao.getLoginList(sortKey, startIndexNo, pageSize);
 		
@@ -58,6 +66,11 @@ public class LoginList extends HttpServlet{
 		request.setAttribute("totRecCnt", totRecCnt);
 		request.setAttribute("totPage", totPage);
 		request.setAttribute("curScrStarNO", curScrStarNO);
+		
+		request.setAttribute("blockSize", blockSize);
+		request.setAttribute("curBlock", curBlock);
+		request.setAttribute("lastBlock", lastBlock);
+		
 		request.setAttribute("vos", vos);
 		request.setAttribute("sortKey ", sortKey );
 		
