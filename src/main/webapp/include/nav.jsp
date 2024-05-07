@@ -50,6 +50,11 @@
 			<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">STUDY_02</button>
 			<div class="dropdown-menu">
 			     <a class="dropdown-item" href="<%=request.getContextPath()%>/study/password/passCheck.jsp">비밀번호암호화</a>
+			     <a class="dropdown-item" href="${ctp}/mapping/test">디렉토리mapping연습</a>
+			     <a class="dropdown-item" href="${ctp}/mapping/test2.do">확장자mapping연습</a>  <!-- .do를 씀으로써 확장자 -->
+			     <a class="dropdown-item" href="${ctp}/mapping/test3.do3">확장자mapping연습3</a>
+			     <a class="dropdown-item" href="${ctp}/mapping/test4.do4">확장자mapping연습4</a>
+			     <a class="dropdown-item" href="${ctp}/mapping/test5.do5">확장자mapping연습5(숙제)</a>
 			</div>
 		</div>
       </li>
