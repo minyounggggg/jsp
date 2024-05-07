@@ -15,7 +15,7 @@ public class Test4InputOkCommand implements Test4Interface {
 		
 		// DB에 저장하러 다녀옵니다.
 		
-		String message = "자료가 DB에 저장되없습니다.";
+		String message = "자료가 DB에 저장되었습니다.";
 		request.setAttribute("message", message);
 		request.setAttribute("url", "test4.do4");  //가야할 주소
 	}

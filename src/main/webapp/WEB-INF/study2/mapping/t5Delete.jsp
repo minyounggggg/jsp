@@ -7,7 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>update.jsp</title>
+	<title>t5Delete.jsp</title>
     <jsp:include page="/include/bs4.jsp" />
 </head>
 <body>
@@ -15,11 +15,11 @@
 <jsp:include page="/include/nav.jsp" />
 <p><br/></p>
 <div class="container">
-	<h2>이곳은 update.jsp 입니다.</h2>
+	<h2>이곳은 t5Delete.jsp 입니다.</h2>
 	<hr/>
 	<div>
-		<a href="updateOk.do4" class="btn btn-primary">수정하기</a>
-		<a href="test4.do4" class="btn btn-warning">돌아가기</a>
+		<a href="t5DeleteOk.do5" class="btn btn-success">회원삭제하기</a>
+		<a href="test5.do5" class="btn btn-warning">돌아가기</a>
 	</div>
 </div>
 <p><br/></p>

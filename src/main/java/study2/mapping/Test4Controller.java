@@ -8,11 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-/*
- *  t5Input.jsp
- *  콤보박스로 회원가입, 수정, 삭제, 검색, 전체리스트 선택
- *  선택하면 텍스트 박스로 오토포커스되어 처리버튼 누르면 처리되었다는 메세지 띄우기 ("아이디"님이 수정되었습니다./"아이디"님이 삭제되었습니다.)
- * */
+
 @SuppressWarnings("serial")
 @WebServlet("*.do4")
 public class Test4Controller extends HttpServlet{
@@ -47,6 +43,11 @@ public class Test4Controller extends HttpServlet{
 			command = new Test4UpdateCommand();
 			command.execute(request, response);
 			viewPage += "update.jsp"; 
+		}
+		else if(com.equals("updateOk")) {
+			command = new Test4UpdateCommand();
+			command.execute(request, response);
+			viewPage = "/WEB-INF/common/message.jsp"; 
 		}
 		else if(com.equals("delete")) {
 			command = new Test4DeleteCommand();
