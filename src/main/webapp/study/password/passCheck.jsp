@@ -21,6 +21,12 @@
 			myform.action = "${ctp}/study/password/PassCheck";
 			myform.submit();
 		}
+		
+		$.ajax({
+			url : "${ctp}/passCheck.jsp",
+			type : "post",
+			data : {}
+		});
 	}
   </script>
 </head>
@@ -59,7 +65,9 @@
     <input type="hidden" name="idx"/>
   </form>
   <br/>
-  <div>비밀번호를 전송후 콘솔창에서 암호화된 비밀번호를 확인하세요.</div>
+  <div>비밀번호를 전송후 아래에서 암호화된 비밀번호를 확인하세요.</div>
+  <hr/>
+  <div id="demo"></div>
 </div>
 <p><br/></p>
 <jsp:include page="/include/footer.jsp" />

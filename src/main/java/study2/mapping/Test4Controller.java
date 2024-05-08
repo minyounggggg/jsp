@@ -37,7 +37,7 @@ public class Test4Controller extends HttpServlet{
 		else if(com.equals("inputOk")) {
 			command = new Test4InputOkCommand();
 			command.execute(request, response);
-			viewPage = "/WEB-INF/common/message.jsp"; 
+			viewPage = "/WEB-INF/include/message.jsp"; 
 		}
 		else if(com.equals("update")) {
 			command = new Test4UpdateCommand();
@@ -47,7 +47,7 @@ public class Test4Controller extends HttpServlet{
 		else if(com.equals("updateOk")) {
 			command = new Test4UpdateCommand();
 			command.execute(request, response);
-			viewPage = "/WEB-INF/common/message.jsp"; 
+			viewPage = "/WEB-INF/include/message.jsp"; 
 		}
 		else if(com.equals("delete")) {
 			command = new Test4DeleteCommand();
@@ -57,7 +57,7 @@ public class Test4Controller extends HttpServlet{
 		else if(com.equals("deleteOk")) {
 			command = new Test4DeleteCommand();
 			command.execute(request, response);
-			viewPage = "/WEB-INF/common/message.jsp"; 
+			viewPage = "/WEB-INF/include/message.jsp"; 
 		}
 		else if(com.equals("search")) {
 			command = new Test4SearchCommand();
