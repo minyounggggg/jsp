@@ -1,4 +1,4 @@
-package study.password;
+package study2.ajax;
 
 import java.io.IOException;
 
@@ -8,27 +8,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.SecurityUtil;
+
+// 비밀번호 만들기 학습창에서 출력되는 인코딩된 비밀번호를 현재 화면에 출력하게 하는 view에서 불렀다.
 @SuppressWarnings("serial")
-@WebServlet("/study/password/PassCheck")
-public class PassCheck extends HttpServlet {
+@WebServlet("/PassCheckAjax")
+public class PassCheckAjax extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mid = request.getParameter("mid")==null ? "" : request.getParameter("mid");
 		String pwd = request.getParameter("pwd")==null ? "" : request.getParameter("pwd").toUpperCase();
-		int idx = request.getParameter("idx")==null ? 0 : Integer.parseInt(request.getParameter("idx"));
+		int flag = request.getParameter("flag")==null ? 0 : Integer.parseInt(request.getParameter("flag"));
 		
 		System.out.println("원본자료 :");
-		System.out.println("idx : " + idx);
+		System.out.println("flag : " + flag);
 		System.out.println("mid : " + mid);
 		System.out.println("pwd : " + pwd);
 		
-		if(idx == 1) {
+		// 전송시킬 인코딩된 비밀번호 변수 : sendPwd
+		String sendPwd = "";
+		
+		if(flag == 1) {
 			// 숫자만을 암호화 하는 경우... 암호키(0x1234ABCD)
 			int key = 0x1234ABCD;
 			int encPwd, decPwd;
 			encPwd = Integer.parseInt(pwd) ^ key;
+			sendPwd = "1234ABCD"+encPwd;
 			
-			System.out.println("인코딩된 비밀번호 : " + "1234ABCD"+encPwd);
+			System.out.println("인코딩된 비밀번호 : " + sendPwd);
 			System.out.println("앞에서 인코딩(암호화)된 pwd를 DB에 저장처리한다. : ");
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			System.out.println("DB에 저장된 pwd를 다시 불러와서 디코딩처리한다.");
@@ -39,7 +46,7 @@ public class PassCheck extends HttpServlet {
 			System.out.println("로그인 인증처리한다.");
 			System.out.println("~~~~~~~~~~~ The End ~~~~~~~~~~~~~~~");
 		}
-		else if(idx == 2) {
+		else if(flag == 2) {
 			// 숫자또는 문자 또는 조합으로 암호화 하는 방법
 			// 예) 문자 A로 전송되면 A의 아스키코드를 변형처리해서 암호화한다.
 			long intPwd;
@@ -60,15 +67,15 @@ public class PassCheck extends HttpServlet {
 			
 			encPwd = intPwd ^ key;
 			
-			strPwd = key + String.valueOf(encPwd);
+			sendPwd = key + String.valueOf(encPwd);
 			
 			// 암호화된 코드와 salt키를 합쳐서 DB에 저장처리한다.
-			System.out.println("인코딩(암호화)된 비밀번호(DB에 저장될 비밀본호) : " + strPwd);
+			System.out.println("인코딩(암호화)된 비밀번호(DB에 저장될 비밀본호) : " + sendPwd);
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			
 			// 다시 로그인할때 DB의 비밀번호를 가져와서 복호화 시켜준다.
 			long decPwd;
-			intPwd = Long.parseLong(strPwd.substring(9));
+			intPwd = Long.parseLong(sendPwd.substring(9));
 			decPwd = intPwd ^ key;
 			System.out.println("디코딩(복호화)된 비밀번호 : " + decPwd);
 			
@@ -86,7 +93,7 @@ public class PassCheck extends HttpServlet {
 			System.out.println();
 			System.out.println("최종 변환된 비밀번호(원본 비번과 비교하세요) : " + result);
 		}
-		else if(idx == 3) {
+		else if(flag == 3) {
 			// 숫자또는 문자 또는 조합으로 암호화 하는 방법 - salt키를 랜덤하게 받아서 처리한다.
 			// 예) 문자 A로 전송되면 A의 아스키코드를 변형처리해서 암호화한다.
 			long intPwd;
@@ -109,6 +116,7 @@ public class PassCheck extends HttpServlet {
 			
 			// 암호화된 코드와 salt키를 합쳐서 DB에 저장처리한다.(salt길이 + salt + 암호화코드)
 			System.out.println("인코딩(암호화)된 비밀번호(DB에 저장될 비밀번호) : " + dbSavePwd);
+			sendPwd = dbSavePwd;	// 클라이언트로 넘겨줄 인코딩된 비밀번호 값 저장 변수
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 			
 			
@@ -136,8 +144,15 @@ public class PassCheck extends HttpServlet {
 			}
 			System.out.println();
 			System.out.println("최종 변환된 비밀번호(원본 비번과 비교하세요) : " + result);
+			
+			
+		}
+		else if(flag == 4) {
+			SecurityUtil security = new SecurityUtil();
+			sendPwd = security.encryptSHA256(pwd);
 		}
 		
-		response.sendRedirect(request.getContextPath()+"/study/password/passCheck.jsp?msg="+"OK");
+		//response.sendRedirect(request.getContextPath()+"/study/password/passCheck.jsp?msg="+"OK");
+		response.getWriter().write(sendPwd);
 	}
 }

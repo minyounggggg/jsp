@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
-<%@ include file = "/include/certification.jsp" %>
+<%-- <%@ include file = "/include/certification.jsp" %> --%>
 <!DOCTYPE html>
 <html>
 <head>

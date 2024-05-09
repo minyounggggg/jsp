@@ -7,7 +7,7 @@
   <title>Bootstrap 4 Website Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <%@ include file = "../../include/bs4.jsp" %>
+  <%@ include file = "/include/bs4.jsp" %>
   <style>
   .fakeimg {
     height: 200px;
@@ -16,10 +16,10 @@
   </style>
 </head>
 <body>
-<%@ include file = "../../include/header.jsp" %>
+<%@ include file = "/include/header.jsp" %>
 
 <!-- 메뉴바(Nav) -->
-<%@ include file = "../../include/nav.jsp" %>
+<%@ include file = "/include/nav.jsp" %>
 <%
 	Date time = new Date();
 	SimpleDateFormat fommter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
@@ -30,7 +30,7 @@
   <div class="row">
     <div class="col-sm-4">
     
-      <h5 class="mb-4">로그인 중인 회원 : ${sName}</h5>
+      <h5 class="mb-4">로그인 중인 회원 : ${sNickName}</h5>
       <h6 class="text-right">최근 가입한 회원</h6>
       <div class="fakeimg">
       	<table class="table table-striped table-hover text-center">

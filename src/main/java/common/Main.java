@@ -18,13 +18,12 @@ public class Main extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LoginDAO dao = new LoginDAO();
-		
 		ArrayList<LoginVO> recentVos = dao.getRecentFiveMember();
 		
 		request.setAttribute("recentVos", recentVos);
 		
 		String viewPage = "/main/main.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-		dispatcher.forward(request, response);;
+		dispatcher.forward(request, response);
 	}
 }
