@@ -44,6 +44,19 @@
     	let address = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress;
     	
     	
+    	// 이메일 주소형식체크
+        
+        // 홈페이지 주소형식체크
+        
+        // 전화번호 형식 체크
+        if(tel2 != "" && tel3 != ""){
+        	// 전화번호 정규화 체크
+        }
+        else {
+        	tel2 = " ";
+        	tel3 = " ";
+        	tel = tel1 + "-" + tel2 + "-" + tel3;
+        }
     	
     	
     	if(idCheckSw == 0){
@@ -118,6 +131,9 @@
 			});
 		}
 	}
+    
+    
+    
   </script>
 </head>
 <body>

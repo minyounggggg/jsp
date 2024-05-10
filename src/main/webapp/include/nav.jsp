@@ -17,10 +17,12 @@
       <li class="nav-item">
         <a class="nav-link" href="${ctp}/GuestList">Guest</a>
       </li>
-			<c:if test="${level <= 4}">
+		<c:if test="${level <= 4}"> <!-- 가입한회원만 볼수있게 -->
 	      <li class="nav-item">
 	        <a class="nav-link" href="#">Board</a>
 	      </li>
+	    </c:if>
+	    <c:if test="${level <= 4 && (level > 1 || level == 0)}">
 	      <li class="nav-item">
 	        <a class="nav-link" href="#">PDS</a>
 	      </li>    
@@ -39,7 +41,7 @@
 				      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0427_storage/t4_StorageTest.jsp">Storage연습</a>
 				      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/homework/ex1_Login.jsp">아이디저장연습</a>
 				      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0429_JSTL/el1.jsp">EL연습</a>
-				      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0429_JSTL/jstl1.jsp">JSTL연습</a>
+				      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0429_JSTL/jstl.jsp">JSTL연습</a>
 				      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0430_web_xml/filter/t1_Filter.jsp">Filter한글연습</a>
 				      <%-- <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0430_web_xml/filter/t2_Certification.jsp">인증코드발행(관리자)</a> --%>
 				      <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0430_web_xml/init/t03_init.jsp">초기값확인</a>
@@ -49,27 +51,45 @@
 				  </div>
 	      </li>
 	      <li class="nav-item mr-2">
-				  <div class="dropdown">
-				    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-				      Study2
-				    </button>
-				    <div class="dropdown-menu">
-				      <a class="dropdown-item" href="${ctp}/study/password/passCheck.jsp">비밀번호암호화</a>
-				      <a class="dropdown-item" href="${ctp}/mapping/test1">디렉토리매핑연습</a>
-				      <a class="dropdown-item" href="${ctp}/mapping/test2.do">확장자매핑연습</a>
-				      <a class="dropdown-item" href="${ctp}/mapping/test3.do3">확장자매핑연습3</a>
-				      <a class="dropdown-item" href="${ctp}/mapping/test4.do4">확장자매핑연습4</a>
-				      <a class="dropdown-item" href="${ctp}/ajaxTest1.st">AJAX연습(일반)</a>
-				      <a class="dropdown-item" href="${ctp}/ajaxTest2.st">AJAX연습(응용)</a>
-				      <a class="dropdown-item" href="${ctp}/ajaxTest3.st">AJAX연습(회원관리)</a>
-				      <a class="dropdown-item" href="${ctp}/uuidForm.st">UUID연습</a>
-				      <a class="dropdown-item" href="${ctp}/study/database/login.jsp">로그인연습</a>
-				    </div>
-				  </div>
+			  <div class="dropdown">
+			    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+			      Study2
+			    </button>
+			    <div class="dropdown-menu">
+			      <a class="dropdown-item" href="${ctp}/study/password/passCheck.jsp">비밀번호암호화</a>
+			      <a class="dropdown-item" href="${ctp}/mapping/test1">디렉토리매핑연습</a>
+			      <a class="dropdown-item" href="${ctp}/mapping/test2.do">확장자매핑연습</a>
+			      <a class="dropdown-item" href="${ctp}/mapping/test3.do3">확장자매핑연습3</a>
+			      <a class="dropdown-item" href="${ctp}/mapping/test4.do4">확장자매핑연습4</a>
+			      <a class="dropdown-item" href="${ctp}/ajaxTest1.st">AJAX연습(일반)</a>
+			      <a class="dropdown-item" href="${ctp}/ajaxTest2.st">AJAX연습(응용)</a>
+			      <a class="dropdown-item" href="${ctp}/ajaxTest3.st">AJAX연습(회원관리)</a>
+			      <a class="dropdown-item" href="${ctp}/uuidForm.st">UUID연습</a>
+			      <a class="dropdown-item" href="${ctp}/study/database/login.jsp">로그인연습</a>
+			    </div>
+			  </div>
 	      </li>
    		</c:if>
+   		<c:if test="${level <= 4}">
+	    	<li class="nav-item mr-2">
+			  	<div class="dropdown">
+					<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">MyPage</button>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="MemberMain.mem">회원메인방</a> 	<!-- 준회원 -->
+						<c:if test="${level <= 4 && (level > 1 || level == 0)}"> <!-- 정회원은 여기도 볼수잇슴 -->
+							<a class="dropdown-item" href="#">일정관리</a>
+							<a class="dropdown-item" href="#">메세지관리</a>
+							<a class="dropdown-item" href="MemberList.mem">회원리스트</a>
+						</c:if>
+						<a class="dropdown-item" href="MemberPwdCheck.mem">회원정보수정</a> 	<!-- 준회원 -->
+						<a class="dropdown-item" href="MemberDelete.mem">회원탈퇴</a>    	<!-- 준회원 -->
+						<c:if test="${level == 0}"><a class="dropdown-item" href="#">관리자메뉴</a></c:if>
+					</div>
+				</div>
+	    	</li>
+	    </c:if>
       <li class="nav-item">
-				<c:if test="${level <= 4}"><a class="nav-link" href="${ctp}/MemberLogout.mem">Logout</a></c:if>
+		<c:if test="${level <= 4}"><a class="nav-link" href="${ctp}/MemberLogout.mem">Logout</a></c:if>
         <c:if test="${level > 4}"><a class="nav-link" href="${ctp}/MemberLogin.mem">Login</a></c:if>
       </li>    
       <li class="nav-item">
