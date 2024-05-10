@@ -132,6 +132,17 @@
 		}
 	}
     
+    $(function(){
+    	$("#mid").on("blur", () => {
+    		idCheckSw = 0;
+    	});
+    	
+    	$("#nickName").on("blur", () => {
+    		nickCheckSw = 0;
+    	});
+    	
+    });
+    
     
     
   </script>

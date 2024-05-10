@@ -17,7 +17,7 @@
     'use strict';
     
     //닉네임 중복검사 버튼 눌렀으면 비활성화, 안눌렀으면 활성화
-    let nickCheckSw = 0;
+    let nickCheckSw = 1;
     
     function fCheck() {
     	// 유효성 검사.....
@@ -73,12 +73,12 @@
 				type : "get",
 				data : {nickName : nickName},
 				success : function(res) {
-					//if(!$("#nickName").equals(${sNickName})){
+					if(!$("#nickName").equals(${sNickName})){
 						if(res != "0"){
 							alert("이미 사용중인 닉네임입니다. 다시 입력하세요.");
 							myform.nickName.focus();
 						}
-					//}
+					}
 					else alert("사용가능한 닉네임입니다.");
 				},
 				error : function() {
@@ -87,6 +87,14 @@
 			});
 		}
 	}
+    
+    $(function(){
+    	$("#nickName").on("blur", () => {
+    		nickCheckSw = 0;
+    	});
+    	
+    });
+    
   </script>
 </head>
 <body>
