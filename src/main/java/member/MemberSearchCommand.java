@@ -16,6 +16,8 @@ public class MemberSearchCommand implements MemberInterface {
 		
 		MemberVO vo =  dao.getMemberIdCheck(mid);
 		
+		vo.setAddress(vo.getAddress().replace("/", " "));  //repalce함수를 사용해 /를 공백으로 바꾸기
+		
 		request.setAttribute("vo", vo);
 	}
 

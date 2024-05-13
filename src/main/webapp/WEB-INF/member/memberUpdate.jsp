@@ -17,7 +17,7 @@
     'use strict';
     
     //닉네임 중복검사 버튼 눌렀으면 비활성화, 안눌렀으면 활성화
-    let nickCheckSw = 1;
+    let nickCheckSw = 0;
     
     function fCheck() {
     	// 유효성 검사.....
@@ -65,6 +65,11 @@
 			alert("닉네임을 입력해주세요.");
 			myform.nickName.focus();
 		}
+		else if(nickName == '${cNickName}'){
+			alert("현재 닉네임을 그대로 사용합니다.");
+			nickCheckSw = 1;
+			return false;
+		}
 		else{
 			nickCheckSw = 1;
 			
@@ -73,7 +78,7 @@
 				type : "get",
 				data : {nickName : nickName},
 				success : function(res) {
-					if(!$("#nickName").equals(${sNickName})){
+					if(!$("#nickName") == '${sNickName}'){
 						if(res != "0"){
 							alert("이미 사용중인 닉네임입니다. 다시 입력하세요.");
 							myform.nickName.focus();
@@ -246,6 +251,7 @@
     <input type="hidden" name="tel" />
     <input type="hidden" name="address" />
     <input type="hidden" name="mid" value="${sMid}" />
+    <input type="hidden" name="photo" value="${vo.photo}" />
     
   </form>
 </div>

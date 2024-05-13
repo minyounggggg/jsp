@@ -44,6 +44,8 @@ public class MemberUpdateOkCommand implements MemberInterface {
 		
 		MemberDAO dao = new MemberDAO();
 		MemberVO vo = dao.MemberNickNameCheck(nickName);
+		
+		// 세션의 닉네임과 앞에서 넘어온 닉네임을 비교해서 같지 않으면 사용자가 닉네임을 수정한 것이다.
 		if(!sNickName.equals(nickName)) {
 			if(vo.getNickName() != null) {
 				request.setAttribute("message", "이미 사용중인 닉네임입니다.");
@@ -73,6 +75,7 @@ public class MemberUpdateOkCommand implements MemberInterface {
 		int res = dao.setMemberUpdateOk(vo);
 		
 		if(res != 0) {
+			session.setAttribute("sNickName", vo.getNickName());
 			request.setAttribute("message", "회원정보가 수정되었습니다.");
 			request.setAttribute("url", "MemberUpdate.mem");
 		}
