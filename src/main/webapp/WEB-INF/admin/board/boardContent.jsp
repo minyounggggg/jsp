@@ -24,7 +24,7 @@
 			if(ans) location.href="BoardDelete.bo?idx=${vo.idx}";
 		}
     	
-    	// 하트 수 증가 (중복허용)
+    	// 하트 수 증가 (중복허용) .bo -> .ad 로 바꿔고 처리가 되는지
     	function goodCheck() {
 			$.ajax({
 				url : "BoardGoodCheck.bo",

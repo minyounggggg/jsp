@@ -28,8 +28,6 @@
     </script>
 </head>
 <body>
-<jsp:include page="/include/header.jsp" />
-<jsp:include page="/include/nav.jsp" />
 <p><br/></p>
 <div class="container">
 	<h2 class="text-center">방명록 리스트</h2>
@@ -122,6 +120,5 @@
 	<!-- 블록페이지 끝 -->
 </div>
 <p><br/></p>
-<%@ include file = "/include/footer.jsp" %>
 </body>
 </html>
