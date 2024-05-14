@@ -107,6 +107,10 @@
 	<!-- 리스트앞에 체크박스 넣어서 전체선택, 선택, 반전선택, 전체취소 등 만들기-->
 	<div id="totalList"> 
 		<h3 class="text-center mb-4">전체 회원 리스트</h3>
+		<div class="mb-2">
+			<input type="checkbox" name="selectA" id="selectA" onclick="selectAll()"/> 전체 선택/해제 &nbsp;&nbsp;
+			<input type="checkbox" name="selectR" id="selectR" onclick="selectRe()"/> 반전선택
+		</div>
 		<table class="table table-hover text-center">
 			<tr class="table-dark text-dark">
 				<th>번호</th>
@@ -125,7 +129,7 @@
 				<c:if test="${vo.userDel == 'OK'}"><c:set var="active" value="탈퇴신청" /></c:if>
 				<c:if test="${vo.userDel != 'OK'}"><c:set var="active" value="활동중" /></c:if>
 				<tr>
-					<td>${vo.idx}</td>
+					<td><input type="checkbox" name="ckBox1" id="ckBox1" onclick="selectChange()"/>${vo.idx}</td>
 					<td><a href="MemberSearch.mem?mid=${vo.mid}">${vo.mid}</a></td>
 					<td>${vo.nickName}</td>
 					<td>${vo.name}</td>
