@@ -21,3 +21,12 @@ desc board;
 insert into board values (default,'admin','관리맨','게시판 서비스를 시작합니다.','안녕하세요.',default,'192.168.50.53',default,default,default);
 
 select * from board;
+select * from board where idx = 5; /*현재글*/
+select idx, title from board where idx > 5 order by idx limit 1; /*다음글*/
+select idx, title from board where idx < 5 order by idx desc limit 1; /*이전글*/
+
+-- 시간으로 비교해서 필드에 값 저장하기
+select *, timestampdiff(hour, wDate, now()) as hour_diff from board;    /* as 뒤는 변수명*/
+
+-- 날짜로 비교해서 필드에 값 저장하기
+select *, datediff(wDate, now()) as date_diff from board;

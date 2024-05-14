@@ -14,13 +14,11 @@
     	
     	function pageSizeCheck() {
     		let pageSize = $("#pageSize").val();
-			location.href = "BoardList.bo?pageSize="+pageSize;
+			location.href = "BoardList.ad?pageSize="+pageSize;
 		}
     </script>
 </head>
 <body>
-<jsp:include page="/include/header.jsp" />
-<jsp:include page="/include/nav.jsp" />
 <p><br/></p>
 <div class="container">
 	<table class="table table-borderless m-0 p-0">
@@ -28,7 +26,7 @@
 			<td colspan="2"><h2 class="text-center">게시판 리스트</h2></td>
 		</tr>
 		<tr>
-			<td><c:if test="${sLevel != 1}"><a href="BoardInput.bo" class="btn btn-success btn-sm">글쓰기</a></c:if></td>
+			<td></td>
 			<td class="text-right">
 				<select name="pageSize" id="pageSize" onchange="pageSizeCheck()">
 					<option ${pageSize==5 ? "selected" : ""}>5</option>
@@ -54,7 +52,7 @@
 				<tr>
 					<td class="text-center">${vo.idx}</td>
 					<td>
-						<a href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}">${vo.title}</a>
+						<a href="BoardContent.ad?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}">${vo.title}</a>
 						<c:if test="${vo.hour_diff < 24}"><img src="${ctp}/images/new.gif"/></c:if>
 					</td>
 					<td class="text-center">${vo.nickName}</td>
@@ -71,21 +69,20 @@
 		<!-- 블록페이지 시작 -->
 	<div class="text-center">
 		<ul class="pagination justify-content-center">
-		<c:if test="${pag > 1 }"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=1&pageSize=${pageSize}">첫 페이지</a></li></c:if>
-		<c:if test="${curBlock > 0}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=${(curBlock-1) * blockSize + 1}&pageSize=${pageSize}">이전블록</a></li></c:if>
+		<c:if test="${pag > 1 }"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.ad?pag=1&pageSize=${pageSize}">첫 페이지</a></li></c:if>
+		<c:if test="${curBlock > 0}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.ad?pag=${(curBlock-1) * blockSize + 1}&pageSize=${pageSize}">이전블록</a></li></c:if>
 		<c:forEach var="i" begin="${(curBlock * blockSize)+1}" end="${(curBlock * blockSize) + blockSize}" varStatus="st">
 			<!-- 현재있는 페이지 수만 굵게 표시한다. -->
-			<c:if test="${i <= totPage && i == pag}"><li class="page-item active"><a class="page-link" href="${ctp}/BoardList.bo?pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if> 
+			<c:if test="${i <= totPage && i == pag}"><li class="page-item active"><a class="page-link" href="${ctp}/BoardList.ad?pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if> 
 			<!-- 현재있는 페이지가 아닌 숫자는 일반 표시, 두껍게 하지 않는다. -->
-			<c:if test="${i <= totPage && i != pag}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
+			<c:if test="${i <= totPage && i != pag}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.ad?pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
 		</c:forEach>
-		<c:if test="${curBlock < lastBlock}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=${(curBlock+1) * (blockSize+1)}&pageSize=${pageSize}">다음블록</a></li></c:if>
-		<c:if test="${pag < totPage}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=${totPage}&pageSize=${pageSize}">마지막 페이지</a></li></c:if>
+		<c:if test="${curBlock < lastBlock}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.ad?pag=${(curBlock+1) * (blockSize+1)}&pageSize=${pageSize}">다음블록</a></li></c:if>
+		<c:if test="${pag < totPage}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.ad?pag=${totPage}&pageSize=${pageSize}">마지막 페이지</a></li></c:if>
 		</ul>
 	</div>
 	<!-- 블록페이지 끝 -->
 </div>
 <p><br/></p>
-<%@ include file = "/include/footer.jsp" %>
 </body>
 </html>
