@@ -12,6 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import admin.board.BoardContentCommand;
 import admin.board.BoardListCommand;
+import admin.complaint.BoardComplaintInputCommand;
+import admin.complaint.ComplaintCheckCommand;
+import admin.complaint.ComplaintListCommand;
 import admin.member.MemberDeleteOkCommand;
 import admin.member.MemberLevelChangeCommand;
 import admin.member.MemberListCommand;
@@ -31,7 +34,12 @@ public class AdminController extends HttpServlet{
 		HttpSession session = request.getSession();
 		int level = session.getAttribute("sLevel")==null ? 999 : (int) session.getAttribute("sLevel");
 		
-		if(level > 0) {
+		if(com.equals("/BoardComplaintInput")) {
+			command = new BoardComplaintInputCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(level > 0) {
 			request.setAttribute("message", "로그인 후 사용하세요");
 			request.setAttribute("url", request.getContextPath()+"/MemberLogin.mem");
 			viewPage = "/include/message.jsp";
@@ -73,6 +81,17 @@ public class AdminController extends HttpServlet{
 			command.execute(request, response);
 			viewPage += "/board/boardContent.jsp";
 		}
+		else if(com.equals("/ComplaintList")) {
+			command = new ComplaintListCommand();
+			command.execute(request, response);
+			viewPage += "/complaint/complaintList.jsp";
+		}
+		else if(com.equals("/ComplaintCheck")) {
+			command = new ComplaintCheckCommand();
+			command.execute(request, response);
+			return;
+		}
+		
 		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

@@ -1,32 +1,47 @@
 package common;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import board.BoardDAO;
-import guest.GuestDAO;
+import board.BoardVO;
+import pds.PdsDAO;
 
 public class Pagination {
-	
-	public static void pageChange(HttpServletRequest request, int pag, int pageSize, String part) {
-//		int pag = request.getParameter("pag") == null ? 1 : Integer.parseInt(request.getParameter("pag")); 
-//		int pageSize = request.getParameter("pageSize")== null ? 10 : Integer.parseInt(request.getParameter("pageSize"));  //가운데 5는 기본페이지 표시
-		
+
+	public static void pageChange(HttpServletRequest request, int pag, int pageSize, String section,	String part) {
+		BoardDAO boardDao = new BoardDAO();
+		//PdsDAO pdsDao = new PdsDAO();
 		int totRecCnt = 0;
-		if(part.equals("board")) {
-			BoardDAO dao = new BoardDAO();
-		    totRecCnt = dao.getTotRecCnt();
+		
+		if(section.equals("board")) {
+			totRecCnt = boardDao.getTotRecCnt();	// 게시판의 전체 레코드수 구하기
 		}
-		else {
-			GuestDAO dao = new GuestDAO();
-			totRecCnt = dao.getTotRecCnt();
+		else if(section.equals("pds")) {
+			//totRecCnt = pdsDao.getTotRecCnt();	// 자료실의 전체 레코드수 구하기
 		}
-		int totPage = (totRecCnt % pageSize)==0 ? (totRecCnt / pageSize) : (totRecCnt / pageSize) +1;
+		
+		
+		int totPage = (totRecCnt % pageSize)==0 ? (totRecCnt / pageSize) : (totRecCnt / pageSize) + 1;
 		if(pag > totPage) pag = 1;
-		int startIndexNo = (pag-1) * pageSize;
-		int curScrStarNO = (totRecCnt - startIndexNo);
+		int startIndexNo = (pag - 1) * pageSize;
+		int curScrStarNO = totRecCnt - startIndexNo;
+		
 		int blockSize = 3;
 		int curBlock = (pag - 1) / blockSize;
-		int lastBlock = (totPage -1) / blockSize;
+		int lastBlock = (totPage - 1) / blockSize;
+		
+		List<BoardVO> vos = null;
+		//List<PdsVO> vos = null;
+		
+		if(section.equals("board")) {
+			vos = boardDao.getBoardList(startIndexNo, pageSize);	// 게시판의 전체 자료 가져오기
+		}
+		else if(section.equals("pds")) {
+			//vos = pdsDao.getBoardList(startIndexNo, pageSize);	// 자료실의 전체 자료 가져오기
+		}
+		request.setAttribute("vos", vos);
 		
 		request.setAttribute("pag", pag);
 		request.setAttribute("pageSize", pageSize);
@@ -36,5 +51,10 @@ public class Pagination {
 		request.setAttribute("blockSize", blockSize);
 		request.setAttribute("curBlock", curBlock);
 		request.setAttribute("lastBlock", lastBlock);
+		
+		//request.setAttribute("part", part);
+		System.out.println("vos : " + vos);
 	}
+
+
 }

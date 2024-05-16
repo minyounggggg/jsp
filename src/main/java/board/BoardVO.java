@@ -11,6 +11,8 @@ public class BoardVO {
 	private String openSw;
 	private String wDate;
 	private int good;
+	private String complaint;
+	
 	
 	private int hour_diff; //게시글 24시간 경과 유무 체크변수 (시간비교)
 	private int date_diff; //게시글 24시간 경과 유무 체크변수 (날짜비교)
@@ -88,13 +90,20 @@ public class BoardVO {
 	public void setDate_diff(int date_diff) {
 		this.date_diff = date_diff;
 	}
-	
+	public String getComplaint() {
+		return complaint;
+	}
+	public void setComplaint(String complaint) {
+		this.complaint = complaint;
+	}
 	
 	@Override
 	public String toString() {
 		return "BoardVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", title=" + title + ", content="
 				+ content + ", readNum=" + readNum + ", hostIp=" + hostIp + ", openSw=" + openSw + ", wDate=" + wDate
-				+ ", good=" + good + ", hour_diff=" + hour_diff + ", date_diff=" + date_diff + "]";
+				+ ", good=" + good + ", complaint=" + complaint + ", hour_diff=" + hour_diff + ", date_diff="
+				+ date_diff + "]";
 	}
+	
 	
 }

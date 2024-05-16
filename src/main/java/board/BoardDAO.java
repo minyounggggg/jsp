@@ -51,6 +51,7 @@ public class BoardDAO {
 	
 	// 게시판 리스트 목록 처리 (전체 게시글보기)
 	public ArrayList<BoardVO> getBoardList(int startIndexNo, int pageSize) {
+		System.out.println("pagesize : " + pageSize + " , startIndexNo : " + startIndexNo);
 		ArrayList<BoardVO> vos = new ArrayList<BoardVO>();
 		try {
 			sql = "select *, datediff(wDate, now()) as date_diff, timestampdiff(hour, wDate, now()) as hour_diff from board order by idx desc limit ?,?";
@@ -71,6 +72,7 @@ public class BoardDAO {
 				vo.setOpenSw(rs.getString("openSw"));
 				vo.setwDate(rs.getString("wDate"));
 				vo.setGood(rs.getInt("good"));
+				vo.setComplaint(rs.getString("complaint"));
 				
 				vo.setHour_diff(rs.getInt("hour_diff"));
 				vo.setDate_diff(rs.getInt("date_diff"));

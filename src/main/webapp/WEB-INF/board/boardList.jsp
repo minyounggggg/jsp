@@ -16,6 +16,13 @@
     		let pageSize = $("#pageSize").val();
 			location.href = "BoardList.bo?pageSize="+pageSize;
 		}
+    	
+    	function modalCheck(idx, hostIp, mid, nickName) {
+      		$("#myModal #modalIdx").text(idx);
+      		$("#myModal #modalHostIp").text(hostIp);
+      		$("#myModal #modalMid").text(mid);
+      		$("#myModal #modalNickName").text(nickName);
+    	}
     </script>
 </head>
 <body>
@@ -49,21 +56,32 @@
 			<th>글쓴날짜</th>
 			<th>조회수(좋아요)</th>
 		</tr>
+		<c:set var="curScrStarNO" value="${curScrStarNO}"></c:set> <!-- 글번호 삭제 되도 바르게 표시 처리 -->
 		<c:forEach var="vo" items="${vos}" varStatus="st">
 			<c:if test="${vo.openSw == 'OK' || sLevel == 0 || sNickName == vo.nickName}">
-				<tr>
-					<td class="text-center">${vo.idx}</td>
-					<td>
-						<a href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}">${vo.title}</a>
-						<c:if test="${vo.hour_diff < 24}"><img src="${ctp}/images/new.gif"/></c:if>
-					</td>
-					<td class="text-center">${vo.nickName}</td>
-					<!-- 1일(24시간) 이내는 시간만표시(10:43), 이후는 날짜와 시간을 표시 : 2024-05-14 10:43:52 -->
-					<%-- <td><c:if test="${vo.date_diff ==0}">${fn:substring(vo.wDate,11,16)}</c:if></td> --%>
-					<td class="text-center">${vo.hour_diff < 24 ? fn:substring(vo.wDate, 11, 19) : fn:substring(vo.wDate, 0, 10)}</td>
-					<td class="text-center">${vo.readNum}(${vo.good})</td>
-				</tr>
+			    <c:if test="${vo.complaint == 'NO' || sLevel == 0 || sNickName == vo.nickName}">
+					<tr>
+						<td class="text-center">${curScrStarNO}</td>
+						<td>
+							<a href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}">${vo.title}</a>
+							<c:if test="${vo.hour_diff < 24}"><img src="${ctp}/images/new.gif"/></c:if>
+						</td>
+						<td class="text-center">
+							${vo.nickName}
+							<!-- 닉네임(글쓴이) 출력되는 곳 옆에 관리자만 보이게 모달박스 버튼 표시하기 -->
+							<c:if test="${sLevel == 0}">
+								<a href="#" onclick="modalCheck('${vo.idx}','${vo.hostIp}','${vo.mid}','${vo.nickName}')" data-toggle="modal" data-target="#myModal" class="btn btn-success btn-sm ml-2">모달출력</a>
+							</c:if>
+						</td>
+						<!-- 1일(24시간) 이내는 시간만표시(10:43), 이후는 날짜와 시간을 표시 : 2024-05-14 10:43:52 -->
+						<%-- <td><c:if test="${vo.date_diff == 0}">${fn:substring(vo.wDate,11,16)}</c:if></td> --%>
+						<%-- <td class="text-center">${vo.hour_diff < 24 ? fn:substring(vo.wDate, 11, 19) : fn:substring(vo.wDate, 0, 10)}</td> --%>
+						<td>${vo.date_diff == 0 ? fn:substring(vo.wDate,11,19) : fn:substring(vo.wDate,0,10)}</td>
+						<td class="text-center">${vo.readNum}(${vo.good})</td>
+					</tr>
+				</c:if>
 			</c:if>
+			<c:set var="curScrStarNO" value="${curScrStarNO -1}"></c:set> <!-- 글번호 삭제 되도 바르게 표시 처리 -->
 		</c:forEach>
 		<tr><td colspan="5" class="m-0 p-0"></td></tr>
 	</table>
@@ -86,6 +104,34 @@
 	<!-- 블록페이지 끝 -->
 </div>
 <p><br/></p>
+
+ <!-- 모달에 회원정보 출력하기 -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          고유번호 : <span id="modalIdx"></span><br/>
+          아이디 : <span id="modalMid"></span><br/>
+          호스트IP : <span id="modalHostIp"></span><br/>
+          닉네임 : <span id="modalNickName"></span><br/>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+        
 <%@ include file = "/include/footer.jsp" %>
 </body>
 </html>

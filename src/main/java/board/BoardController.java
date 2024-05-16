@@ -51,7 +51,7 @@ public class BoardController extends HttpServlet{
 		else if(com.equals("/BoardContent")) {
 			command = new BoardContentCommand();
 			command.execute(request, response);
-			viewPage += "/BoardContent.jsp";
+			viewPage += "/boardContent.jsp";
 		}
 		else if(com.equals("/BoardUpdate")) {
 			command = new BoardUpdateCommand();
