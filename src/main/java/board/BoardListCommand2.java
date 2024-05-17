@@ -11,6 +11,7 @@ public class BoardListCommand2 implements BoardInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*
 		BoardDAO dao = new BoardDAO();
 		
 		// 페이징처리 시작
@@ -38,6 +39,7 @@ public class BoardListCommand2 implements BoardInterface {
 		request.setAttribute("blockSize", blockSize);
 		request.setAttribute("curBlock", curBlock);
 		request.setAttribute("lastBlock", lastBlock);
+		*/
 	}
 
 }

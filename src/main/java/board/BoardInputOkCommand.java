@@ -16,6 +16,7 @@ public class BoardInputOkCommand implements BoardInterface {
 		String content = request.getParameter("content")==null? "" : request.getParameter("content");
 		String hostIp = request.getParameter("hostIp")==null? "" : request.getParameter("hostIp");
 		String openSw = request.getParameter("openSw")==null? "" : request.getParameter("openSw");
+		String complaint = request.getParameter("complaint")==null? "" : request.getParameter("complaint");
 		
 		BoardVO vo = new BoardVO();
 		
@@ -26,6 +27,7 @@ public class BoardInputOkCommand implements BoardInterface {
 		vo.setContent(content);
 		vo.setHostIp(hostIp);
 		vo.setOpenSw(openSw);
+		vo.setComplaint(complaint);
 		
 		BoardDAO dao = new BoardDAO();
 		

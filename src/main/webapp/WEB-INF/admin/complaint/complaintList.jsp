@@ -56,7 +56,8 @@
 				<td>${vo.cpContent}</td>
 				<td>${vo.cpDate}</td>
 				<td>
-					<a href="javascript:complaintCheck('${vo.part}',${vo.partIdx},'${vo.complaint}')">${vo.complaint == 'NO' ? '표시중' : '감추기'}</a>
+					<a href="javascript:complaintCheck('${vo.part}','${vo.partIdx}','${vo.complaint}')" class="badge badge-warning">${vo.complaint == 'NO' ? '표시중' : '<font color=white>감춰짐</font>'}</a><br/>
+					<a href="javascript:complaintDelete(${vo.idx})" class="badge badge-danger">삭제</a>
 				</td>
 				<c:set var="complaintCnt" value="${complaintCnt -1}"></c:set>
 			</tr>

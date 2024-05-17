@@ -1,7 +1,7 @@
 package common;
 
 import javax.servlet.http.HttpServletRequest;
-
+//첫번쨰연습
 public class Pagination2 {
 
 	public static void pageChange(HttpServletRequest request, int pag, int pageSize, int totRecCnt, int startIndexNo,	String part) {

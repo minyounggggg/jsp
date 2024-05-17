@@ -135,7 +135,96 @@
 	    	});
     	}
     	
-    	
+		// 댓글달기
+		function replyCheck() {
+			let content = $("#content").val();
+			if(content.trim() == ""){
+				alert("댓글을 입력하세요");
+				return false;
+			}
+			let query = {
+					boardIdx : ${vo.idx},
+					mid : '${sMid}',
+					nickName : '${sNickName}',
+					hostIp : '${pageContext.request.remoteAddr}',
+					content : content
+			}
+
+			$.ajax({
+				url : "BoardReplyInput.bo",
+				type : "post",
+				data : query,
+				success : function (res) {
+					if(res != "0"){
+						alert("댓글이 입력되었습니다.");
+						location.reload();
+					}
+					else alert("댓글입력 실패");
+				},
+				error : function () {
+					alert("전송오류");
+				}
+			});
+		}
+		
+		// 댓글삭제하기
+		function replyDelete(idx) {
+			let ans = confirm("선택한 댓글을 삭제하시겠습니까?");
+			if(!ans) return false;
+			
+			$.ajax({
+				url : "BoardReplyDelete.bo",
+				type : "post",
+				data : {idx:idx},
+				success : function (res) {
+					if(res != "0"){
+						alert("댓글이 삭제되었습니다.");
+						location.reload();
+					}
+					else alert("삭제실패");
+				},
+				error : function() {
+					alert("전송오류");
+				}
+				
+			});
+		}
+		
+		// 수정할 댓글 모달창에 불러오기
+		function replyContent(idx,content) {
+			$("#myModal2 #modalContent").text(content);
+			$("#myModal2 #idx").val(idx);
+		}
+		
+		//댓글 수정하기 버튼처리
+		function replyContentUpdate() {
+			let idx = $("#idx").val();
+			let replyContentUpdateTxt = $("#modalContent").val();
+			if(replyContentUpdateTxt.trim() == ""){
+				alert("수정사항을 입력해주세요");
+				return false;
+			}
+			
+			let query = {
+					idx : idx,
+					replyContentUpdateTxt : replyContentUpdateTxt
+			}
+			$.ajax({
+				url : "BoardReplyUpdate.bo",
+				type : "post",
+				data : query,
+				success : function (res) {
+					if(res != "0"){
+						alert("수정이 완료되었습니다.");
+						location.reload();
+					}
+					else alert("수정실패");
+				},
+				error : function () {
+					alert("전송오류");
+				}
+			});
+		}
     </script>
 </head>
 <body>
@@ -174,7 +263,8 @@
 			<td colspan="4">
 		        <div class="row">
 			        <div class="col">
-			        	<input type="button" value="돌아가기" onclick="location.href='BoardList.bo?pag=${pag}&pageSize=${pageSize}';" class="btn btn-warning" />
+			        	<c:if test="${empty flag}"><input type="button" value="돌아가기" onclick="location.href='BoardList.bo?pag=${pag}&pageSize=${pageSize}';" class="btn btn-warning" /></c:if>
+			        	<c:if test="${!empty flag}"><input type="button" value="돌아가기" onclick="location.href='BoardSearchList.bo?pag=${pag}&pageSize=${pageSize}&search=${search}&searchString=${searchString}';" class="btn btn-warning" /></c:if>
 			        </div>
 			        <c:if test="${sNickName == vo.nickName || sLevel == 0}">
 				        <div class="col text-right">
@@ -209,6 +299,51 @@
 </div>
 <p><br/></p>
 
+<!-- 댓글처리 (리스트/입력) -->
+<div class="container">
+	<!-- 댓글 리스트 보여주기 -->
+	<table class="table table-hover text-center">
+		<tr>
+			<th>작성자</th>
+			<th>댓글내용</th>
+			<th>댓글일자</th>
+			<th>접속IP</th>
+		</tr>
+		<c:forEach var="replyVo" items="${replyVos}" varStatus="st">
+			<tr>
+				<td>${replyVo.nickName}
+					<c:if test="${sMid == replyVo.mid || sLevel == 0}">
+						<a href="#" onclick="replyContent('${replyVo.idx}','${replyVo.content}')" data-toggle="modal" data-target="#myModal2" class="badge badge-success"  title="댓글수정">수정</a>
+						<a href="javascript:replyDelete(${replyVo.idx})" class="badge badge-danger" title="댓글삭제">삭제</a>
+					</c:if>
+				</td>
+				<td class="text-left">${fn:replace(replyVo.content, newLine, "<br/>")}</td>
+				<td>${fn:substring(replyVo.wDate, 0, 10)}</td>
+				<td>${replyVo.hostIp}</td>
+			</tr>
+		</c:forEach>
+		<tr><td colspan="4" class="m-0 p-0"></td></tr>
+	</table>
+	
+	<!-- 댓글 입력창 -->
+	<form name="replyForm">
+		<table class="table table-center">
+			<tr>
+				<td style="width:85%" class="text-left">
+					글내용 : 
+					<textarea rows="4" name="content" id="content" class="form-control"></textarea>
+				</td>
+				<td style="width:15%">
+					<br/>
+					<p>작성자 : ${sNickName}</p>
+					<p><input type="button" value="댓글달기" onclick="replyCheck()" class="btn btn-info btn-sm"/></p>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<!-- 댓글처리 -->
+
 <!-- 신고하기 폼 모달창 -->
 <div class="modal fade" id="myModal">
     <div class="modal-dialog modal-dialog-centered">
@@ -242,10 +377,38 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
-        
       </div>
     </div>
 </div>
+<!-- 신고하기 폼 모달창 -->
+
+<!-- 댓글수정 모달창 -->
+  <div class="modal fade" id="myModal2">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">댓글 수정</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          글내용 : <textarea rows="4" id="modalContent" class="form-control"></textarea>
+          <hr/>
+          <input type="button" value="수정하기" onclick="replyContentUpdate()" class="btn btn-success form-control"/>
+          <input type="hidden" name="idx" id="idx"/>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- 댓글수정 모달창 -->
 
 <%@ include file = "/include/footer.jsp" %>
 </body>

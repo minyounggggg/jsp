@@ -16,8 +16,15 @@ public class BoardVO {
 	
 	private int hour_diff; //게시글 24시간 경과 유무 체크변수 (시간비교)
 	private int date_diff; //게시글 24시간 경과 유무 체크변수 (날짜비교)
+	private int replyCnt; // 부모글의 댓글수를 저장하는 변수
 	
 	
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
 	public int getIdx() {
 		return idx;
 	}
@@ -97,13 +104,13 @@ public class BoardVO {
 		this.complaint = complaint;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "BoardVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", title=" + title + ", content="
 				+ content + ", readNum=" + readNum + ", hostIp=" + hostIp + ", openSw=" + openSw + ", wDate=" + wDate
 				+ ", good=" + good + ", complaint=" + complaint + ", hour_diff=" + hour_diff + ", date_diff="
-				+ date_diff + "]";
+				+ date_diff + ", replyCnt=" + replyCnt + "]";
 	}
-	
 	
 }
