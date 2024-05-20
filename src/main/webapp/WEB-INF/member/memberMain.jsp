@@ -32,6 +32,8 @@
 		<p>게시판에 올린 글 수 : __건</p>
 		<p>자료실에 올린 글 수 : __건</p>
 	</div>
+	<hr/>
+	<p><img src="${ctp}/images/member/${mVo.photo}" width="200px"/></p>
 </div>
 <p><br/></p>
 <%@ include file = "/include/footer.jsp" %>

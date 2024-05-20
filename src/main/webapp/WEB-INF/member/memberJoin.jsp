@@ -74,6 +74,29 @@
     		
     		myform.submit();
     	}
+    	
+    	// 사진파일 업로드
+    	let photo = document.getElementById("file").value;
+		let maxSize = 1024 * 1024 * 10;  // 기본단위 : Byte, 1024*1024*10 = 10MByte 허용
+		let ext = photo.substring(photo.lastIndexOf(".")+1).toLowerCase();
+		
+		if(photo.trim() == ""){
+			alert("업로드할 파일을 선택하세요");
+			return false;
+		}
+		
+		let fileSize = document.getElementById("file").files[0].size;
+		if(fileSize > maxSize) {
+			alert("업로드할 파일의 최대용량은 10MByte입니다.");
+		}
+		else if(ext != 'jpg' && ext != 'gif' && ext != 'png'){
+			alert("업로드가능한 파일은 'jpg/gif/png'만 가능합니다.")
+		}
+		else{
+			demo.innerHTML = photo;
+			myform.submit();
+		}
+		 
     }
     
     // 아이디 중복체크
@@ -143,6 +166,18 @@
     	
     });
     
+    //회원가입시 선택된 이미지 미리보기
+    function imgCheck(e) {
+		if (e.files && e.files[0]){   //그림이 들어왔을떄(0번이있을때) 참
+			let reader = new FileReader();
+			reader.onload = function (e) {       //익명함수(이름이 없는 함수)
+				document.getElementById("demoImg").src = e.target.result; 
+			}
+			reader.readAsDataURL(e.files[0]);
+		}
+	} 
+    
+    
     
     
   </script>
@@ -152,7 +187,7 @@
 <jsp:include page="/include/nav.jsp" />
 <p><br/></p>
 <div class="container">
-  <form name="myform" method="post" action="${ctp}/MemberJoinOk.mem" class="was-validated">
+  <form name="myform" method="post" action="${ctp}/MemberJoinOk.mem" enctype="multipart/form-data" class="was-validated"><!-- enctype="multipart/form-data" -->
     <h2>회 원 가 입</h2>
     <br/>
     <div class="form-group">
@@ -323,7 +358,11 @@
     </div>
     <div  class="form-group">
       회원 사진(파일용량:2MByte이내) :
-      <input type="file" name="fName" id="file" class="form-control-file border"/>
+      <input type="file" name="photo" id="file" onchange="imgCheck(this)" class="form-control-file border"/>
+      <hr/>
+      <div id="demo"></div><br/>
+      <img id="demoImg" width="200px"/>
+      <hr/>
     </div>
     <button type="button" class="btn btn-secondary" onclick="fCheck()">회원가입</button> &nbsp;
     <button type="reset" class="btn btn-secondary">다시작성</button> &nbsp;

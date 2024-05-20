@@ -7,29 +7,41 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import common.SecurityUtil;
 
 public class MemberJoinOkCommand implements MemberInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mid = request.getParameter("mid")==null? "" : request.getParameter("mid");
-		String pwd = request.getParameter("pwd")==null? "" : request.getParameter("pwd");
-		String nickName = request.getParameter("nickName")==null? "" : request.getParameter("nickName");
-		String name = request.getParameter("name")==null? "" : request.getParameter("name");
-		String gender = request.getParameter("gender")==null? "" : request.getParameter("gender");
-		String birthday = request.getParameter("birthday")==null? "" : request.getParameter("birthday");
-		String tel = request.getParameter("tel")==null? "" : request.getParameter("tel");
-		String address = request.getParameter("address")==null? "" : request.getParameter("address");
-		String email = request.getParameter("email")==null? "" : request.getParameter("email");
-		String homePage = request.getParameter("homePage")==null? "" : request.getParameter("homePage");
-		String job = request.getParameter("job")==null? "" : request.getParameter("job");
-		//String hobby = request.getParameter("hobby")==null? "" : request.getParameter("hobby");
-		String photo = request.getParameter("photo")==null? "noimage.jpg" : request.getParameter("photo");
-		String content = request.getParameter("content")==null? "" : request.getParameter("content");
-		String userInfor = request.getParameter("userInfor")==null? "" : request.getParameter("userInfor");
+		String realPath = request.getServletContext().getRealPath("/images/member");		// 저장소, 서버에저장될 파일의 경로
+		int maxSize = 1024 * 1024 * 10;			//서버에 저장시킬 파일의 최대용량 : 10MByte로 제한(1회저장용량)
+		String encoding = "UTF-8";				//코드변환방식
 		
-		String[] hobbys = request.getParameterValues("hobby");
+		// 파일 업로드 처리...(객체 생성시 파일이 자동으로 업로드 된다.)
+		MultipartRequest multipartRequest = new MultipartRequest(request, realPath, maxSize, encoding, new DefaultFileRenamePolicy());
+		
+		
+		String mid = multipartRequest.getParameter("mid")==null? "" : multipartRequest.getParameter("mid");
+		//System.out.println("mid : " + mid);
+		String pwd = multipartRequest.getParameter("pwd")==null? "" : multipartRequest.getParameter("pwd");
+		String nickName = multipartRequest.getParameter("nickName")==null? "" : multipartRequest.getParameter("nickName");
+		String name = multipartRequest.getParameter("name")==null? "" : multipartRequest.getParameter("name");
+		String gender = multipartRequest.getParameter("gender")==null? "" : multipartRequest.getParameter("gender");
+		String birthday = multipartRequest.getParameter("birthday")==null? "" : multipartRequest.getParameter("birthday");
+		String tel = multipartRequest.getParameter("tel")==null? "" : multipartRequest.getParameter("tel");
+		String address = multipartRequest.getParameter("address")==null? "" : multipartRequest.getParameter("address");
+		String email = multipartRequest.getParameter("email")==null? "" : multipartRequest.getParameter("email");
+		String homePage = multipartRequest.getParameter("homePage")==null? "" : multipartRequest.getParameter("homePage");
+		String job = multipartRequest.getParameter("job")==null? "" : multipartRequest.getParameter("job");
+		//String hobby = request.getParameter("hobby")==null? "" : request.getParameter("hobby");
+		String photo = multipartRequest.getParameter("photo")==null? "" : multipartRequest.getParameter("photo");
+		String content = multipartRequest.getParameter("content")==null? "" : multipartRequest.getParameter("content");
+		String userInfor = multipartRequest.getParameter("userInfor")==null? "" : multipartRequest.getParameter("userInfor");
+		
+		String[] hobbys = multipartRequest.getParameterValues("hobby");
 		String hobby = "";
 		if(hobbys.length != 0) {
 			for(String h : hobbys) {
@@ -65,6 +77,17 @@ public class MemberJoinOkCommand implements MemberInterface {
 		pwd = security.encryptSHA256(salt + pwd);
 		
 		pwd = salt + pwd;
+		
+		// 업로드된 파일의 정보 추출
+		//String originalFileName = multipartRequest.getOriginalFileName("fName");  //업로드한 파일의 name
+		//String filesystemName = multipartRequest.getFilesystemName("fName");
+		// 백앤드 파일체크
+//		if(originalFileName == null && originalFileName.equals("")) {
+//			request.setAttribute("message", "파일을 선택해주세요");
+//			request.setAttribute("url", "MemberJoin.mem");
+//			return;
+//		}
+		
 		
 		// 모든 체크가 끝난 자료는 vo에 담아서 DB에 저장 처리한다.
 		vo = new MemberVO();
