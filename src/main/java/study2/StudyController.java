@@ -24,6 +24,7 @@ import study2.pds_test.FileUpload1OkCommand;
 import study2.pds_test.FileUpload2OkCommand;
 import study2.pds_test.FileUpload3OkCommand;
 import study2.pds_test.FileUpload4OkCommand;
+import study2.pds_test.JavaFileDownloadCommand;
 
 @SuppressWarnings("serial")
 @WebServlet("*.st")
@@ -99,6 +100,9 @@ public class StudyController extends HttpServlet{
 			command.execute(request, response);
 			viewPage += "/modal/modal2.jsp";
 		}
+		else if(com.equals("FileUpload")) {
+			viewPage += "/pds_test/fileUpload.jsp";
+		}
 		else if(com.equals("FileUpload1")) {
 			viewPage += "/pds_test/fileUpload1.jsp";
 		}
@@ -131,16 +135,28 @@ public class StudyController extends HttpServlet{
 			command.execute(request, response);
 			viewPage = "/include/message.jsp";
 		}
+		else if(com.equals("FileUpload5")) {
+			viewPage += "/pds_test/fileUpload5.jsp";
+		}
+		else if(com.equals("FileUpload6")) {
+			viewPage += "/pds_test/fileUpload6.jsp";
+		}
 		else if(com.equals("FileDownLoad")) {
 			command = new FileDownLoadCommand();
 			command.execute(request, response);
 			viewPage += "/pds_test/fileDownLoad.jsp";
+		}
+		else if(com.equals("JavaFileDownload")) {
+			command = new JavaFileDownloadCommand();
+			command.execute(request, response);
+			return;
 		}
 		else if(com.equals("FileDelete")) {
 			command = new FileDeleteCommand();
 			command.execute(request, response);
 			return;
 		}
+		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

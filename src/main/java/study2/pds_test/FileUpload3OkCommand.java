@@ -38,6 +38,7 @@ public class FileUpload3OkCommand implements StudyInterface {
 		}
 		oFileName = oFileName.substring(0, oFileName.lastIndexOf("/"));
 		fsName = fsName.substring(0, fsName.lastIndexOf("/"));
+		
 		System.out.println("원본파일명 : " + oFileName);
 		System.out.println("서버에 저장된 파일명 : " + fsName);
 		

@@ -17,15 +17,13 @@ public class MemberJoinOkCommand implements MemberInterface {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String realPath = request.getServletContext().getRealPath("/images/member");		// 저장소, 서버에저장될 파일의 경로
-		int maxSize = 1024 * 1024 * 10;			//서버에 저장시킬 파일의 최대용량 : 10MByte로 제한(1회저장용량)
+		int maxSize = 1024 * 1024 * 5;			//서버에 저장시킬 파일의 최대용량 : 5MByte로 제한(1회저장용량)
 		String encoding = "UTF-8";				//코드변환방식
 		
 		// 파일 업로드 처리...(객체 생성시 파일이 자동으로 업로드 된다.)
 		MultipartRequest multipartRequest = new MultipartRequest(request, realPath, maxSize, encoding, new DefaultFileRenamePolicy());
 		
-		
 		String mid = multipartRequest.getParameter("mid")==null? "" : multipartRequest.getParameter("mid");
-		//System.out.println("mid : " + mid);
 		String pwd = multipartRequest.getParameter("pwd")==null? "" : multipartRequest.getParameter("pwd");
 		String nickName = multipartRequest.getParameter("nickName")==null? "" : multipartRequest.getParameter("nickName");
 		String name = multipartRequest.getParameter("name")==null? "" : multipartRequest.getParameter("name");
@@ -37,7 +35,8 @@ public class MemberJoinOkCommand implements MemberInterface {
 		String homePage = multipartRequest.getParameter("homePage")==null? "" : multipartRequest.getParameter("homePage");
 		String job = multipartRequest.getParameter("job")==null? "" : multipartRequest.getParameter("job");
 		//String hobby = request.getParameter("hobby")==null? "" : request.getParameter("hobby");
-		String photo = multipartRequest.getParameter("photo")==null? "" : multipartRequest.getParameter("photo");
+		// 서버에 저장된 파일 이름으로 저장해야하기 때문에 getFilesystemName으로 받아서 넘기기 getParmeter는 안됨
+		String photo = multipartRequest.getFilesystemName("photo")==null? "" : multipartRequest.getFilesystemName("photo");
 		String content = multipartRequest.getParameter("content")==null? "" : multipartRequest.getParameter("content");
 		String userInfor = multipartRequest.getParameter("userInfor")==null? "" : multipartRequest.getParameter("userInfor");
 		

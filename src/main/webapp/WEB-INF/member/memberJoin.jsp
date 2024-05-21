@@ -58,7 +58,27 @@
         	tel = tel1 + "-" + tel2 + "-" + tel3;
         }
     	
+
+    	// 사진파일 업로드
+    	let photo = document.getElementById("file").value;
+		if(photo.trim() != ""){
+			let ext = photo.substring(photo.lastIndexOf(".")+1).toLowerCase();
+			let maxSize = 1024 * 1024 * 5;  // 기본단위 : Byte, 1024*1024*10 = 10MByte 허용
+			let fileSize = document.getElementById("file").files[0].size;
+			
+			if(ext != 'jpg' && ext != 'gif' && ext != 'png'){
+				alert("업로드가능한 파일은 'jpg/gif/png'만 가능합니다.");
+				return false;
+			}
+			else if(fileSize > maxSize) {
+				alert("업로드할 파일의 최대용량은 5MByte입니다.");
+				return false;
+			}
+		}
+		else return false;
+		
     	
+		// 아이디 중복체크 버튼 체크
     	if(idCheckSw == 0){
     		alert("아이디 중복체크 버튼을 눌러주세여");
     		document.getElementById("midBtn").focus();
@@ -75,27 +95,6 @@
     		myform.submit();
     	}
     	
-    	// 사진파일 업로드
-    	let photo = document.getElementById("file").value;
-		let maxSize = 1024 * 1024 * 10;  // 기본단위 : Byte, 1024*1024*10 = 10MByte 허용
-		let ext = photo.substring(photo.lastIndexOf(".")+1).toLowerCase();
-		
-		if(photo.trim() == ""){
-			alert("업로드할 파일을 선택하세요");
-			return false;
-		}
-		
-		let fileSize = document.getElementById("file").files[0].size;
-		if(fileSize > maxSize) {
-			alert("업로드할 파일의 최대용량은 10MByte입니다.");
-		}
-		else if(ext != 'jpg' && ext != 'gif' && ext != 'png'){
-			alert("업로드가능한 파일은 'jpg/gif/png'만 가능합니다.")
-		}
-		else{
-			demo.innerHTML = photo;
-			myform.submit();
-		}
 		 
     }
     
