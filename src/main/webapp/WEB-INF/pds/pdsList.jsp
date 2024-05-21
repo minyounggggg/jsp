@@ -76,7 +76,7 @@
 		</c:forEach>
 		<tr><td colspan="8" class="m-0 p-0"></td></tr>
 	</table>
-	<!-- 블록페이지 시작 -->
+	<!-- 블록페이지 시작! -->
 	<div class="text-center">
 		<ul class="pagination justify-content-center">
 		<c:if test="${pag > 1 }"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/PdsList.pds?pag=1&pageSize=${pageSize}">첫 페이지</a></li></c:if>
@@ -91,7 +91,7 @@
 		<c:if test="${pag < totPage}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/PdsList.pds?pag=${totPage}&pageSize=${pageSize}">마지막 페이지</a></li></c:if>
 		</ul>
 	</div>
-	<!-- 블록페이지 끝 -->
+	<!-- 블록페이지 끝! -->
 </div>
 <p><br/></p>
 <%@ include file = "/include/footer.jsp" %>
