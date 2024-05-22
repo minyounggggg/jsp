@@ -31,13 +31,13 @@
 			let fileSize = 0;
 			for(let i=1; i<=cnt; i++){
 				let imsiName = "fName" + i;
-				if(isNaN(document.getElementById(imsiName))){
+				if(isNaN(document.getElementById(imsiName))){		/* isNaN 숫자가 아니냐? */
 					let fName = document.getElementById(imsiName).value;
 					if(fName != ""){
 						fileSize += document.getElementById(imsiName).files[0].size;
 						let ext1 = fName.substring(fName.lastIndexOf(".")+1).toLowerCase();
-						if(ext1 != 'jpg' && ext1 != 'gif' && ex1 != 'png' && ext1 != 'zip' && ext1 != 'hwp' && ext1 != 'ppt' && ext1 != 'pptx' && ext1 != 'doc' && ext1 != 'pdf' && ext1 != 'xlsx'){
-							alert("업로드가능한 파일은 'jpg/gif/png/zip/hwp/ppt/pptx/doc/pdf/xlsx'만 가능합니다.")
+						if(ext1 != 'jpg' && ext1 != 'gif' && ext1 != 'png' && ext1 != 'zip' && ext1 != 'hwp' && ext1 != 'ppt' && ext1 != 'pptx' && ext1 != 'doc' && ext1 != 'pdf' && ext1 != 'xlsx' && ext1 != 'txt') {
+			    		    alert("업로드 가능한 파일은 'jpg/gif/png/zip/hwp/ppt/pptx/doc/pdf/xlsx/txt'만 가능합니다.");
 							return false;
 						}
 					}
@@ -90,7 +90,7 @@
 <jsp:include page="/include/nav.jsp" />
 <p><br/></p>
 <div class="container">
-	<form name="myform" method="post" action="PdsInputOk.pds" enctype="multipart/form-data">
+	<form name="myform" method="post" action="PdsInputOk.pds" class="was-validated" enctype="multipart/form-data">
 		<h2 class="text-center">자료올리기</h2>
 		<br/>
 		<div>

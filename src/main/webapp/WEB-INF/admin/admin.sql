@@ -23,3 +23,24 @@ select c.*, b.title, b.nickname, b.mid from complaint c, board b where c.partIdx
 select c.*, b.title as title, b.nickname as nickName, b.mid as mid from complaint c, board b where c.partIdx = b.idx;
 
 select c.*, date_format(c.cpDate, '%Y-%m-%d %H:%i') as cpDate, b.title as title, b.nickname as nickName, b.mid as mid from complaint c, board b where c.partIdx = b.idx;
+
+
+/* 리뷰테이블 */
+create table review(
+	idx int not null auto_increment,		/* 리뷰 고유번호 */
+	part varchar(20) not null,				/* 분야(게시판:board, 자료실:pds...)*/
+	partIdx int not null,					/* 해당분야의 고유번호 */
+	mid varchar(20) not null,				/* 리뷰 올린이 */
+	nickName varchar(20) not null,			/* 리뷰 올린이 닉네임 */
+	star int not null default 0,			/* 별점 부여 점수 */
+	content text,							/* 리뷰 내용 */
+	rDate datetime default now(),			/* 리뷰 등록일자 */
+	primary key(idx),
+	foreign key(mid) references member(mid)
+);
+
+desc review;
+
+drop table review;
+
+
