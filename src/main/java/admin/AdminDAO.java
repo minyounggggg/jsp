@@ -285,10 +285,13 @@ public class AdminDAO {
 	public ArrayList<ReviewVO> getReviewList(int idx, String part) {
 		ArrayList<ReviewVO> rVos = new ArrayList<ReviewVO>();
 		try {
-			sql = "select * from review where part=? and partIdx=? order by idx desc";
+//			sql = "select * from review where part=? and partIdx=? order by idx desc";
+			sql = "select * from (select * from review where part=? and partIdx=?) as v left join reviewReply r "
+				+ "on v.partIdx=? and v.idx=r.reviewIdx order by v.idx desc, r.replyIdx desc";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, part);
 			pstmt.setInt(2, idx);
+			pstmt.setInt(3, idx);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -302,10 +305,15 @@ public class AdminDAO {
 				vo.setContent(rs.getString("content"));
 				vo.setrDate(rs.getString("rDate"));
 				
+				vo.setReplyIdx(rs.getInt("replyIdx"));
+				vo.setReplyMid(rs.getString("replyMid"));
+				vo.setReplyNickName(rs.getString("replyNickName"));
+				vo.setReplyContent(rs.getString("replyContent"));
+				
 				rVos.add(vo);
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL오류3 : " + e.getMessage());
+			System.out.println("SQL오류33 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
@@ -323,6 +331,26 @@ public class AdminDAO {
 			res = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("SQL오류3 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	
+	// 리뷰 대댓글저장하기
+	public int setReviewReplyInputOk(ReviewVO vo) {
+		int res = 0;
+		try {
+			sql = "insert into reviewReply values (default,?,?,?,default,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getIdx());
+			pstmt.setString(2, vo.getReplyMid());
+			pstmt.setString(3, vo.getReplyNickName());
+			pstmt.setString(4, vo.getReplyContent());
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL오류4 : " + e.getMessage());
 		} finally {
 			pstmtClose();
 		}

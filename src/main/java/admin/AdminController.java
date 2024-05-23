@@ -20,6 +20,7 @@ import admin.member.MemberLevelChangeCommand;
 import admin.member.MemberListCommand;
 import admin.review.ReviewDeleteCommand;
 import admin.review.ReviewInputOkCommand;
+import admin.review.ReviewReplyInputOkCommand;
 
 @SuppressWarnings("serial")
 @WebServlet("*.ad")
@@ -48,6 +49,11 @@ public class AdminController extends HttpServlet{
 		}
 		else if(com.equals("/ReviewDelete")) {
 			command = new ReviewDeleteCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/ReviewReplyInputOk")) {
+			command = new ReviewReplyInputOkCommand();
 			command.execute(request, response);
 			return;
 		}

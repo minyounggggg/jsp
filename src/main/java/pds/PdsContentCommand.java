@@ -26,6 +26,7 @@ public class PdsContentCommand implements PdsInterface {
 		//해당글의 리뷰내용 가져오기
 		AdminDAO aDao = new AdminDAO();
 		ArrayList<ReviewVO> rVos = aDao.getReviewList(idx, "pds");
+		//System.out.println("rVos : " + rVos);
 		
 		// 별점 평균 구하기
 		int reviewTot = 0;
