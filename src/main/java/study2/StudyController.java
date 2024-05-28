@@ -27,6 +27,7 @@ import study2.pds_test.FileUpload2OkCommand;
 import study2.pds_test.FileUpload3OkCommand;
 import study2.pds_test.FileUpload4OkCommand;
 import study2.pds_test.JavaFileDownloadCommand;
+import study2.scrollPage.ScrollPageCommand;
 
 @SuppressWarnings("serial")
 @WebServlet("*.st")
@@ -167,6 +168,19 @@ public class StudyController extends HttpServlet{
 			command = new Calendar2Command();
 			command.execute(request, response);
 			viewPage += "/calendar/calendar2.jsp";
+		}
+		else if(com.equals("ScrollStudy")) {
+			viewPage += "/scrollPage/scrollStudy.jsp";
+		}
+		else if(com.equals("ScrollBasic")) {
+			command = new ScrollPageCommand();
+			command.execute(request, response);
+			viewPage += "/scrollPage/scrollBasic.jsp";
+		}
+		else if(com.equals("ScrollPage")) {
+			command = new ScrollPageCommand();
+			command.execute(request, response);
+			viewPage += "/scrollPage/scrollPage.jsp";
 		}
 		
 		
