@@ -28,6 +28,9 @@ import study2.pds_test.FileUpload3OkCommand;
 import study2.pds_test.FileUpload4OkCommand;
 import study2.pds_test.JavaFileDownloadCommand;
 import study2.scrollPage.ScrollPageCommand;
+import study2.transaction.TransactionBankBookCommand;
+import study2.transaction.TransactionTest1Command;
+import study2.transaction.TransactionTest2Command;
 
 @SuppressWarnings("serial")
 @WebServlet("*.st")
@@ -181,6 +184,24 @@ public class StudyController extends HttpServlet{
 			command = new ScrollPageCommand();
 			command.execute(request, response);
 			viewPage += "/scrollPage/scrollPage.jsp";
+		}
+		else if(com.equals("Transaction")) {
+			viewPage += "/transaction/transaction.jsp";
+		}
+		else if(com.equals("TransactionBankBook")) {
+			command = new TransactionBankBookCommand();
+			command.execute(request, response);
+			viewPage += "/transaction/transactionBankBook.jsp";
+		}
+		else if(com.equals("TransactionTest1")) {
+			command = new TransactionTest1Command();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("TransactionTest2")) {
+			command = new TransactionTest2Command();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
 		}
 		
 		

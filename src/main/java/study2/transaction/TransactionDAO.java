@@ -1,4 +1,4 @@
-package study2;
+package study2.transaction;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,16 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import study2.transaction.BankBookVO;
-
-public class StudyDAO {
+public class TransactionDAO {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
 	String sql = "";
 	
-	public StudyDAO() {
+	public TransactionDAO() {
 		String driver = "com.mysql.jdbc.Driver";
 		String url = "jdbc:mysql://localhost:3306/javaclass";
 		String user = "root";
@@ -99,7 +97,7 @@ public class StudyDAO {
 	public BankBookVO getBankBookMidSearch(String mid) {
 		BankBookVO vo = new BankBookVO();
 		try {
-			sql = "select * from bankBook where mid = ?";
+			sql = "select * from bankBook where mid = ? order by idx desc imit 1";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
@@ -120,6 +118,9 @@ public class StudyDAO {
 	// BankBookHistory에 사용내역 저장하기
 	public void setBankBookHistoryInput(BankBookVO vo) {
 		try {
+			// 트렌젝션 설정 : false를 인자값으로 설정하여 수동커밋으로 지정한다.
+			conn.setAutoCommit(false);
+			
 			sql = "insert into bankBookHistory values (default, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, vo.getIdx());
@@ -127,6 +128,9 @@ public class StudyDAO {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
+			try {
+				if(conn != null) conn.rollback();  // 예외오류 발생시는 기존에 작업된 sql문이 모두 rollback된다.
+			} catch (Exception e2) {}
 		} finally {
 			pstmtClose();
 		}
@@ -140,8 +144,14 @@ public class StudyDAO {
 			pstmt.setString(1, vo.getMid());
 			pstmt.setInt(2, vo.getBalance());
 			pstmt.executeUpdate();
+			
+			// 정상적으로 트렌젝션 작업단위가 종료된후에 트랜젝션 커밋시칸다.
+			conn.commit();
 		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
+			try {
+				if(conn != null) conn.rollback();  // 예외오류 발생시는 기존에 작업된 sql문이 모두 rollback된다.
+			} catch (Exception e2) {}
 		} finally {
 			pstmtClose();
 		}
